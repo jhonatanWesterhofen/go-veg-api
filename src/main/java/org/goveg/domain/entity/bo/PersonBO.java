@@ -1,10 +1,10 @@
 package org.goveg.domain.entity.bo;
 
-import org.goveg.domain.entity.dto.UserDTO;
+import org.goveg.domain.vo.UuidVO;
 
 public class PersonBO {
 
-    private String id;
+    private UuidVO id;
 
     private String socialName;
 
@@ -14,10 +14,19 @@ public class PersonBO {
 
     private String phoneNumber;
 
-    private UserDTO user;
+    private UserBO user;
 
-    public String getId() {
-        return id;
+    private AddressBO address;
+
+    public PersonBO(UuidVO id, String socialName, String document, String email, String phoneNumber, UserBO user,
+            AddressBO address) {
+        this.id = id;
+        this.socialName = socialName;
+        this.document = document;
+        this.email = email;
+        this.phoneNumber = phoneNumber;
+        this.user = user;
+        this.address = address;
     }
 
     public String getSocialName() {
@@ -32,12 +41,20 @@ public class PersonBO {
         return email;
     }
 
+    public AddressBO getAddress() {
+        return address;
+    }
+
     public String getPhoneNumber() {
         return phoneNumber;
     }
 
-    public UserDTO getUser() {
+    public UserBO getUser() {
         return user;
+    }
+
+    public UuidVO getId() {
+        return id;
     }
 
 }
