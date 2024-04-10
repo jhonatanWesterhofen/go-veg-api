@@ -7,10 +7,6 @@ public class PanachePersonMapper {
 
     public static PanachePerson toEntity(PersonBO bo) {
 
-        if (bo == null) {
-            return null;
-        }
-
         var panachePerson = new PanachePerson();
 
         panachePerson.setId(bo.getId());
