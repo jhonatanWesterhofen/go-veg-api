@@ -1,7 +1,5 @@
 package goveg.presentation.controllers;
 
-import org.jboss.resteasy.annotations.jaxrs.HeaderParam;
-
 import goveg.domain.entity.dto.PersonDTO;
 import goveg.presentation.service.AccountService;
 import jakarta.inject.Inject;
