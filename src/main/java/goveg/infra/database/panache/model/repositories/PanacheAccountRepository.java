@@ -14,9 +14,9 @@ public class PanacheAccountRepository implements IPersonRepository {
 
     
     @Override
-    public PersonBO create(PersonBO person) {
+    public PersonBO create(PersonBO bo) {
 
-        var panache = PanachePersonMapper.toEntity(person);
+        var panache = PanachePersonMapper.toEntity(bo);
 
         panache.persistAndFlush();
 

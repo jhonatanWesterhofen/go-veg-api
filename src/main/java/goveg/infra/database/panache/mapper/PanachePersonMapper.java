@@ -7,9 +7,13 @@ public class PanachePersonMapper {
 
     public static PanachePerson toEntity(PersonBO bo) {
 
+        if (bo == null) {
+            return null;
+        }
+
         var panachePerson = new PanachePerson();
 
-        panachePerson.setId(bo.getId());
+        panachePerson.setId(null);
         panachePerson.setSocialName(bo.getSocialName());
         panachePerson.setDocument(bo.getDocument());
         panachePerson.setEmail(bo.getEmail());
@@ -23,7 +27,9 @@ public class PanachePersonMapper {
 
     public static PersonBO toDomain(PanachePerson panache) {
 
-        
+        if (panache == null) {
+            return null;
+        }
 
         return new PersonBO(
                 panache.getId(),

@@ -1,7 +1,5 @@
 package goveg.infra.database.panache.mapper;
 
-import java.time.format.DateTimeFormatter;
-
 import goveg.domain.entity.bo.UserBO;
 import goveg.infra.database.panache.model.PanacheUser;
 
@@ -15,9 +13,7 @@ public class PanacheUserMapper {
 
         var panacheUser = new PanacheUser();
 
-        var formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm:ss");
-
-        panacheUser.setId(bo.getId());
+        panacheUser.setId(null);
         panacheUser.setConfirmationPass(bo.getConfirmationPass());
         panacheUser.setPassword(bo.getPassword());
         panacheUser.setDocument(bo.getDocument());

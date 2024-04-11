@@ -2,7 +2,6 @@ package goveg.presentation.service;
 
 import goveg.domain.entity.dto.PersonDTO;
 import goveg.domain.usecase.CreateAccount;
-
 import jakarta.enterprise.context.ApplicationScoped;
 import jakarta.transaction.Status;
 import jakarta.transaction.Transactional;
@@ -14,7 +13,7 @@ public class AccountService extends AbstractService {
     @Transactional
     public Response createAccount(PersonDTO dto) {
 
-        if (dto.equals(null)) {
+        if (dto == null) {
             return null;
         }
 
