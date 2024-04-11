@@ -7,6 +7,10 @@ public class PanacheAdressMapper {
 
     public static PanacheAddress toEntity(AddressBO bo) {
 
+        if (bo == null) {
+            return null;
+        }
+
         var panacheAddress = new PanacheAddress();
 
         panacheAddress.setId(bo.getId());
@@ -21,6 +25,10 @@ public class PanacheAdressMapper {
     }
 
     public static AddressBO toDomain(PanacheAddress panacheAddress) {
+
+        if (panacheAddress == null) {
+            return null;
+        }
 
         return new AddressBO(
                 panacheAddress.getId(),

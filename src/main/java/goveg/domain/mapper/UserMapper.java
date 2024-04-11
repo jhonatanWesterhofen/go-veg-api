@@ -21,7 +21,7 @@ public class UserMapper {
 
     public static UserDTO toUserDTO(UserBO bo) {
 
-        if (bo.equals(null)) {
+        if (bo == null) {
             return null;
         }
 
@@ -54,7 +54,7 @@ public class UserMapper {
 
     public static AddressDTO tAddressDTO(AddressBO bo) {
 
-        if (bo.equals(null)) {
+        if (bo == null) {
             return null;
         }
 
