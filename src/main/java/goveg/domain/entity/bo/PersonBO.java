@@ -1,5 +1,7 @@
 package goveg.domain.entity.bo;
 
+import java.util.List;
+
 public class PersonBO {
 
     private Long id;
@@ -14,10 +16,10 @@ public class PersonBO {
 
     private UserBO user;
 
-    private AddressBO address;
+    private List<AddressBO> address;
 
     public PersonBO(Long id, String socialName, String document, String email, String phoneNumber, UserBO user,
-            AddressBO address) {
+            List<AddressBO> address) {
         this.id = id;
         this.socialName = socialName;
         this.document = document;
@@ -39,10 +41,6 @@ public class PersonBO {
         return email;
     }
 
-    public AddressBO getAddress() {
-        return address;
-    }
-
     public String getPhoneNumber() {
         return phoneNumber;
     }
@@ -55,4 +53,7 @@ public class PersonBO {
         return id;
     }
 
+    public List<AddressBO> getAddress() {
+        return address;
+    }
 }

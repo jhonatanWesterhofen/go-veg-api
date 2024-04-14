@@ -8,8 +8,7 @@ public interface IPersonRepository {
 
     PersonBO merge(PersonBO person);
 
-    PersonBO findBy(String id);
+    PersonBO findBy(Long id);
 
-    void delete(String id);
-
+    void delete(PersonBO person);
 }

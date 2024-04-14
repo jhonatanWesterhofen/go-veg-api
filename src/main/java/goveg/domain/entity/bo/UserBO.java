@@ -1,5 +1,7 @@
 package goveg.domain.entity.bo;
 
+import java.time.LocalDateTime;
+
 public class UserBO {
 
     private Long id;
@@ -10,9 +12,9 @@ public class UserBO {
 
     private String confirmationPass;
 
-    private String createdAt;
+    private LocalDateTime createdAt;
 
-    public UserBO(Long id, String document, String password, String confirmationPass, String createdAt) {
+    public UserBO(Long id, String document, String password, String confirmationPass, LocalDateTime createdAt) {
         this.id = id;
         this.document = document;
         this.password = password;
@@ -32,7 +34,7 @@ public class UserBO {
         return confirmationPass;
     }
 
-    public String getCreatedAt() {
+    public LocalDateTime getCreatedAt() {
         return createdAt;
     }
 
