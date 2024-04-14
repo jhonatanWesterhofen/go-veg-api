@@ -17,7 +17,7 @@ public class PanacheUserMapper {
         panacheUser.setConfirmationPass(bo.getConfirmationPass());
         panacheUser.setPassword(bo.getPassword());
         panacheUser.setDocument(bo.getDocument());
-        panacheUser.setCreatedAt(null);
+        panacheUser.setCreatedAt(bo.getCreatedAt());
 
         return panacheUser;
     }
@@ -32,7 +32,6 @@ public class PanacheUserMapper {
                 panache.getDocument(),
                 panache.getPassword(),
                 panache.getConfirmationPass(),
-                panache.getCreatedAt().toString());
+                panache.getCreatedAt());
     }
-
 }

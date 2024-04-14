@@ -42,9 +42,9 @@ public class PanachePerson extends PanacheEntityBase {
     @OneToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     private PanacheUser user;
 
-    @JoinColumn(name = "ID_ADDRESS", referencedColumnName = "ID")
+    @JoinColumn(name = "ID_PRODUCER", referencedColumnName = "ID")
     @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-    private List<PanacheAddress> address;
+    private List<PanacheAddress> producerAddress;
 
     public String getSocialName() {
         return socialName;
@@ -86,19 +86,19 @@ public class PanachePerson extends PanacheEntityBase {
         this.user = user;
     }
 
-    public List<PanacheAddress> getAddress() {
-        return address;
-    }
-
-    public void setAddress(List<PanacheAddress> address) {
-        this.address = address;
-    }
-
     public Long getId() {
         return id;
     }
 
     public void setId(Long id) {
         this.id = id;
+    }
+
+    public List<PanacheAddress> getProducerAddress() {
+        return producerAddress;
+    }
+
+    public void setProducerAddress(List<PanacheAddress> producerAddress) {
+        this.producerAddress = producerAddress;
     }
 }

@@ -1,6 +1,11 @@
 package goveg.infra.database.panache.mapper;
 
+import java.util.List;
+import java.util.stream.Collectors;
+
+import goveg.domain.entity.bo.AddressBO;
 import goveg.domain.entity.bo.PersonBO;
+import goveg.infra.database.panache.model.PanacheAddress;
 import goveg.infra.database.panache.model.PanachePerson;
 
 public class PanachePersonMapper {
@@ -11,6 +16,10 @@ public class PanachePersonMapper {
             return null;
         }
 
+        List<PanacheAddress> address = bo.getAddress().stream()
+                .map(PanacheAdressMapper::toEntity)
+                .collect(Collectors.toList());
+
         var panachePerson = new PanachePerson();
 
         panachePerson.setId(null);
@@ -19,7 +28,7 @@ public class PanachePersonMapper {
         panachePerson.setEmail(bo.getEmail());
         panachePerson.setPhoneNumber(bo.getPhoneNumber());
         panachePerson.setUser(PanacheUserMapper.toEntity(bo.getUser()));
-        panachePerson.setAddress(null);
+        panachePerson.setProducerAddress(address);
 
         return panachePerson;
 
@@ -31,6 +40,10 @@ public class PanachePersonMapper {
             return null;
         }
 
+        List<AddressBO> address = panache.getProducerAddress().stream()
+                .map(PanacheAdressMapper::toDomain)
+                .collect(Collectors.toList());
+
         return new PersonBO(
                 panache.getId(),
                 panache.getSocialName(),
@@ -38,6 +51,6 @@ public class PanachePersonMapper {
                 panache.getEmail(),
                 panache.getPhoneNumber(),
                 PanacheUserMapper.toDomain(panache.getUser()),
-                null);
+                address);
     }
 }

@@ -1,5 +1,7 @@
 package goveg.domain.entity.dto;
 
+import java.util.List;
+
 public class PersonDTO {
 
     private String id;
@@ -14,7 +16,7 @@ public class PersonDTO {
 
     private UserDTO user;
 
-    private AddressDTO address;
+    private List<AddressDTO> address;
 
     public String getId() {
         return id;
@@ -64,11 +66,11 @@ public class PersonDTO {
         this.user = user;
     }
 
-    public AddressDTO getAddress() {
+    public List<AddressDTO> getAddress() {
         return address;
     }
 
-    public void setAddress(AddressDTO address) {
+    public void setAddress(List<AddressDTO> address) {
         this.address = address;
     }
 }

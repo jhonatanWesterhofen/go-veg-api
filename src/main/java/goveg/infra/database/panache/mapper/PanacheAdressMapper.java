@@ -13,7 +13,7 @@ public class PanacheAdressMapper {
 
         var panacheAddress = new PanacheAddress();
 
-        panacheAddress.setId(bo.getId());
+        panacheAddress.setId(null);
         panacheAddress.setStreet(bo.getStreet());
         panacheAddress.setNumber(bo.getNumber());
         panacheAddress.setComplement(bo.getComplement());

@@ -12,7 +12,6 @@ public class PanacheAccountRepository implements IPersonRepository {
 
     EntityManager em = PanachePerson.getEntityManager();
 
-    
     @Override
     public PersonBO create(PersonBO bo) {
 
@@ -35,22 +34,21 @@ public class PanacheAccountRepository implements IPersonRepository {
     }
 
     @Override
-    public PersonBO findBy(String id) {
-        return PanachePerson.find(id, "id")
+    public PersonBO findBy(Long id) {
+
+        return PanachePerson.find("id", id.toString())
                 .firstResultOptional()
                 .map(entity -> PanachePersonMapper.toDomain((PanachePerson) entity))
                 .orElse(null);
     }
 
     @Override
-    public void delete(String id) {
+    public void delete(PersonBO person) {
 
-        var entity = findBy(id);
+        var entity = PanachePersonMapper.toEntity(person);
 
-        var mapper = PanachePersonMapper.toEntity(entity);
-
-        if (mapper != null) {
-            em.remove(mapper);
+        if (entity != null) {
+            entity.delete();
         }
     }
 }
