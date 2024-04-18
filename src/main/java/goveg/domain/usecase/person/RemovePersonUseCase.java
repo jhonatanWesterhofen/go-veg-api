@@ -1,12 +1,12 @@
-package goveg.domain.usecase;
+package goveg.domain.usecase.person;
 
 import goveg.domain.repositories.IPersonRepository;
 
-public class RemoveAccount {
+public class RemovePersonUseCase {
 
     private IPersonRepository iPersonRepository;
 
-    public RemoveAccount(IPersonRepository iPersonRepository) {
+    public RemovePersonUseCase(IPersonRepository iPersonRepository) {
         this.iPersonRepository = iPersonRepository;
     }
 

@@ -1,13 +1,11 @@
 package goveg.presentation.service;
 
-import goveg.infra.database.panache.model.repositories.PanacheAccountRepository;
+import goveg.infra.database.panache.model.repositories.PanachePersonRepository;
 import jakarta.inject.Inject;
-
-
 
 public abstract class AbstractService {
 
     @Inject
-    PanacheAccountRepository accountRepository;
+    PanachePersonRepository personRepository;
 
 }
