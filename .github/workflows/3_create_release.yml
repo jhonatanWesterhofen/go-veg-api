@@ -1,0 +1,74 @@
+name: 3 - MASTER - Create Release
+
+on:
+  pull_request:
+    branches: [ master ]
+    types: [ closed ]
+
+jobs:
+  Create_Release:
+    name: Create Release on PR to Master
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v4
+
+      - name: Authenticate with GitHub Token
+        uses: actions/setup-python@v2
+        with:
+          python-version: '3.x'
+
+      - name: Get Total Pull Requests
+        id: get_total_pr
+        run: |
+          page=1
+          total_count=0
+          while :
+          do
+            current_count=$(curl -s -H "Authorization: token ${{ secrets.ACESS_TOKEN }}" \
+                    -H "Accept: application/vnd.github.v3+json" \
+                    "https://api.github.com/repos/${{ github.repository }}/pulls?state=closed&base=master&head=develop&page=${page}" \
+                    | jq length)
+            total_count=$((total_count + current_count))
+
+            if [ $current_count -eq 0 ]; then
+              break
+            fi
+
+            if [ $current_count -eq 30 ]; then
+              page=$((page + 1))
+            else
+              break
+            fi
+          done
+          echo "::set-output name=pr_count::$total_count"
+
+      - name: Transform PR Count to Version
+        id: transform_version
+        run: |
+          pr_count="${{ steps.get_total_pr.outputs.pr_count }}"
+          if [ "$pr_count" -eq 0 ]; then
+            version="v0.0.0"
+          else
+            # Transforma o número de PRs em formato vX.Y.Z
+            major=$((pr_count / 100 % 10))
+            minor=$((pr_count / 10 % 10))
+            patch=$((pr_count % 10))
+            version="v${major}.${minor}.${patch}"
+          fi
+          echo "::set-output name=version::$version"
+
+      - name: Create Release
+        id: create_release
+        uses: actions/create-release@v1
+        env:
+          GITHUB_TOKEN: ${{ secrets.ACESS_TOKEN }}
+        with:
+          tag_name: ${{ steps.transform_version.outputs.version }}
+          release_name: ${{ steps.transform_version.outputs.version }}
+          body: |
+            Changes introduced by ${{ steps.transform_version.outputs.version }}:
+            - Description of changes...
+          draft: false
+          prerelease: false
