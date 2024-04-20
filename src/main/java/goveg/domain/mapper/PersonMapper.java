@@ -1,8 +1,11 @@
 package goveg.domain.mapper;
 
+import java.util.List;
 import java.util.stream.Collectors;
 
+import goveg.domain.entity.bo.AddressBO;
 import goveg.domain.entity.bo.PersonBO;
+import goveg.domain.entity.dto.AddressDTO;
 import goveg.domain.entity.dto.PersonDTO;
 
 public class PersonMapper {
@@ -12,7 +15,7 @@ public class PersonMapper {
             return null;
         }
 
-        var addressBO = dto.getAddress().stream()
+        List<AddressBO> addressBO = dto.getAddress().stream()
                 .map(AddressMapper::toAddressBO)
                 .collect(Collectors.toList());
 
@@ -32,11 +35,11 @@ public class PersonMapper {
             return null;
         }
 
-        var addressDTO = bo.getAddress().stream()
+        List<AddressDTO> addressDTO = bo.getAddress().stream()
                 .map(AddressMapper::toAddressDTO)
                 .collect(Collectors.toList());
 
-        var personDTO = new PersonDTO();
+        PersonDTO personDTO = new PersonDTO();
 
         personDTO.setId(bo.getId().toString());
         personDTO.setSocialName(bo.getSocialName());
