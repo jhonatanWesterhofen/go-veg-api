@@ -1,0 +1,27 @@
+name: 2 - DEVELOP - Opens Pull Request To Master
+
+on:
+  pull_request:
+    branches: [ develop ]
+    types: [ closed ]
+
+jobs:
+  Opens_Pull_Request_To_Master:
+    name: Opens Pull Request to Master
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Create Pull Request
+        uses: peter-evans/create-pull-request@v5
+        with:
+          token: ${{ secrets.ACESS_TOKEN }}
+          branch: ${{ github.ref }}
+          base: master
+          title: "Auto-generated PR, master <- develop."
+          body: |
+                This PR was automatically created from Develop, 
+                - Add the description of changes...
+          draft: false
