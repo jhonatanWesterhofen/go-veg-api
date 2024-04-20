@@ -23,8 +23,8 @@ public class PersonController {
     @POST
     @Path("/create/person")
     @Consumes(MediaType.APPLICATION_JSON)
-    public Response createAccount(PersonDTO dto) {
-        return accountService.createAccount(dto);
+    public Response createPerson(PersonDTO dto) {
+        return accountService.createPerson(dto);
     }
 
     @GET
@@ -40,7 +40,6 @@ public class PersonController {
     public Response findPersonDocument(String id) {
         return accountService.findIdPerson(id);
     }
-
 
     @PUT
     @Path("update")

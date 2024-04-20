@@ -1,13 +1,14 @@
 package goveg.infra.database.panache.mapper;
 
 import goveg.domain.entity.bo.AddressBO;
+import goveg.domain.utils.Utils;
 import goveg.infra.database.panache.model.PanacheAddress;
 
 public class PanacheAdressMapper {
 
     public static PanacheAddress toEntity(AddressBO bo) {
 
-        if (bo == null) {
+        if (Utils.isNull(bo)) {
             return null;
         }
 
@@ -26,7 +27,7 @@ public class PanacheAdressMapper {
 
     public static AddressBO toDomain(PanacheAddress panacheAddress) {
 
-        if (panacheAddress == null) {
+        if (Utils.isNull(panacheAddress)) {
             return null;
         }
 

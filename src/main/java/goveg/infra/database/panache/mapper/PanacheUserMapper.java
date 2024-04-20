@@ -1,13 +1,14 @@
 package goveg.infra.database.panache.mapper;
 
 import goveg.domain.entity.bo.UserBO;
+import goveg.domain.utils.Utils;
 import goveg.infra.database.panache.model.PanacheUser;
 
 public class PanacheUserMapper {
 
     public static PanacheUser toEntity(UserBO bo) {
 
-        if (bo == null) {
+        if (Utils.isNull(bo)) {
             return null;
         }
 
@@ -22,16 +23,16 @@ public class PanacheUserMapper {
         return panacheUser;
     }
 
-    public static UserBO toDomain(PanacheUser panache) {
-        if (panache == null) {
+    public static UserBO toDomain(PanacheUser panacheUser) {
+        if (Utils.isNull(panacheUser)) {
             return null;
         }
 
         return new UserBO(
-                panache.getId(),
-                panache.getDocument(),
-                panache.getPassword(),
-                panache.getConfirmationPass(),
-                panache.getCreatedAt());
+                panacheUser.getId(),
+                panacheUser.getDocument(),
+                panacheUser.getPassword(),
+                panacheUser.getConfirmationPass(),
+                panacheUser.getCreatedAt());
     }
 }

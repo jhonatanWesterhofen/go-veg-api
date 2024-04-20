@@ -2,10 +2,7 @@ package goveg.domain.entity.enums;
 
 public enum EnumErrorCod implements IEnum {
 
-        CAMPO_OBRIGATORIO_NAME("001", "O campo SocialName é obrigatório!", 400),
-        CAMPO_OBRIGATORIO_DOCUMENT("002", "O campo cpfCNPJ é obrigatório!", 400),
-        CAMPO_OBRIGATORIO_CEP("003", "O campo postalCode é obrigatório!", 400),
-        CAMPO_OBRIGATORIO_SENHA("004", "O campo password é obrigatório!", 400),
+        CAMPO_OBRIGATORIO_DOCUMENT("002", "O campo {0} é obrigatório!", 400),
         USUARIO_EXISTENTE("005", "Documento informado já possui um usuário vinculado a ele!", 400),
         EMAIL_INVALIDO("006", "E-mail informado inválido!", 400),
         DOCUMENTO_INVALIDO("007", "Documento informado é inválido. Precisa ser um número de CPF ou CNPJ válido!", 400),
@@ -20,10 +17,10 @@ public enum EnumErrorCod implements IEnum {
         DATA_INFORMADA_INVALIDA("016", "Data informada não respeita o formato padrão.", 400),
         SENHA_INVALIDA("017", "Senha inválida!", 400),
         ERRO_COMUNICACAO("018", "A requisição enviada ao parceiro retornou com erro!", 502),
-        OBJETO_PERSON_OBRIGATORIO("019", "O objeto PERSONDTO é obrigatório!", 400),
-        CAMPO_OBRIGATORIO("019", "O objeto PERSONDTO é obrigatório!", 400),
-        FORMATO_INVALIDO_DO_CAMPO("019", "O campo aceita somente numeros", 400); 
-    
+        OBJETO_OBRIGATORIO("019", "O objeto {0} é obrigatório!", 400),
+        CAMPO_OBRIGATORIO("019", "O campo {0} é obrigatório", 400),
+        FORMATO_INVALIDO_DO_CAMPO("020", "O campo aceita somente numeros", 400),
+        DOCUMENTO_INFORMADO_INVALIDO("021", "O documento informado é invalido!", 400);
 
         private final String key, error;
         private final int httpStatus;
@@ -49,7 +46,9 @@ public enum EnumErrorCod implements IEnum {
 
         @Override
         public boolean containsInEnum(String key) {
-                throw new UnsupportedOperationException("Unimplemented method 'containsInEnum'");
+                return false;
         }
+
+      
 
 }

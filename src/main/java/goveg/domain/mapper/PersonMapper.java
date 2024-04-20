@@ -7,11 +7,15 @@ import goveg.domain.entity.bo.AddressBO;
 import goveg.domain.entity.bo.PersonBO;
 import goveg.domain.entity.dto.AddressDTO;
 import goveg.domain.entity.dto.PersonDTO;
+import goveg.domain.utils.Utils;
+import goveg.domain.validate.ValidadeDocument;
 
 public class PersonMapper {
 
+    final ValidadeDocument validate = new ValidadeDocument();
+
     public static PersonBO toBO(PersonDTO dto) {
-        if (dto == null) {
+        if (Utils.isNull(dto)) {
             return null;
         }
 
@@ -23,6 +27,7 @@ public class PersonMapper {
                 Long.valueOf(dto.getId()),
                 dto.getSocialName(),
                 dto.getDocument(),
+                dto.getDocument(),
                 dto.getEmail(),
                 dto.getPhoneNumber(),
                 UserMapper.toUserBO(dto.getUser()),
@@ -31,7 +36,7 @@ public class PersonMapper {
 
     public static PersonDTO toDTO(PersonBO bo) {
 
-        if (bo == null) {
+        if (Utils.isNull(bo)) {
             return null;
         }
 
@@ -43,7 +48,8 @@ public class PersonMapper {
 
         personDTO.setId(bo.getId().toString());
         personDTO.setSocialName(bo.getSocialName());
-        personDTO.setDocument(bo.getDocument());
+        personDTO.setDocument(bo.getCpf() == null ? bo.getCnpj() : null);
+        personDTO.setDocument(bo.getCnpj() == null ? bo.getCpf() : null);
         personDTO.setEmail(bo.getEmail());
         personDTO.setPhoneNumber(bo.getPhoneNumber());
         personDTO.setUser(UserMapper.toUserDTO(bo.getUser()));

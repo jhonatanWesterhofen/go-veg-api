@@ -6,12 +6,13 @@ import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
 import goveg.domain.entity.bo.UserBO;
 import goveg.domain.entity.dto.UserDTO;
+import goveg.domain.utils.Utils;
 
 public class UserMapper {
 
     public static UserBO toUserBO(UserDTO dto) {
 
-        if (dto.equals(null)) {
+        if (Utils.isNull(dto)) {
             return null;
         }
 
@@ -26,7 +27,7 @@ public class UserMapper {
 
     public static UserDTO toUserDTO(UserBO bo) {
 
-        if (bo == null) {
+        if (Utils.isNull(bo)) {
             return null;
         }
 

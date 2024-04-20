@@ -2,12 +2,13 @@ package goveg.domain.mapper;
 
 import goveg.domain.entity.bo.AddressBO;
 import goveg.domain.entity.dto.AddressDTO;
+import goveg.domain.utils.Utils;
 
 public class AddressMapper {
 
     public static AddressBO toAddressBO(AddressDTO dto) {
 
-        if (dto == null) {
+        if (Utils.isNull(dto)) {
             return null;
         }
         return new AddressBO(Long.valueOf(dto.getId()),
@@ -23,7 +24,7 @@ public class AddressMapper {
 
     public static AddressDTO toAddressDTO(AddressBO bo) {
 
-        if (bo == null) {
+        if (Utils.isNull(bo)) {
             return null;
         }
 

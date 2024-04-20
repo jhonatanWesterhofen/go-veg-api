@@ -7,8 +7,10 @@ import goveg.domain.usecase.person.FindPersonDocumentUseCase;
 import goveg.domain.usecase.person.FindPersonUseCase;
 import goveg.domain.usecase.person.RemovePersonUseCase;
 import goveg.domain.usecase.person.UpdatePersonUseCase;
-import goveg.domain.utils.StringUtils;
-import goveg.domain.utils.govegException;
+import goveg.domain.utils.StringUtil;
+import goveg.domain.utils.Utils;
+import goveg.domain.utils.exception.GoVegException;
+import goveg.domain.validate.ValidateUtil;
 import jakarta.enterprise.context.ApplicationScoped;
 import jakarta.transaction.Transactional;
 import jakarta.ws.rs.core.Response;
@@ -17,7 +19,7 @@ import jakarta.ws.rs.core.Response;
 public class PersonService extends AbstractService {
 
     @Transactional
-    public Response createAccount(PersonDTO personDTO) {
+    public Response createPerson(PersonDTO personDTO) {
 
         validadePerson(personDTO);
 
@@ -41,7 +43,9 @@ public class PersonService extends AbstractService {
     @Transactional
     public Response removeAccount(String id) {
 
-        validade(id);
+        if (Utils.isNull(id)) {
+            throw new GoVegException(EnumErrorCod.CAMPO_OBRIGATORIO);
+        }
 
         RemovePersonUseCase removePerson = new RemovePersonUseCase(personRepository);
         removePerson.execute(id);
@@ -52,10 +56,12 @@ public class PersonService extends AbstractService {
     @Transactional
     public Response findIdPerson(String id) {
 
-        validade(id);
+        if (Utils.isNull(id)) {
+            throw new GoVegException(EnumErrorCod.CAMPO_OBRIGATORIO);
+        }
 
-        if (!StringUtils.onlyNumbers(id)) {
-            throw new govegException(EnumErrorCod.FORMATO_INVALIDO_DO_CAMPO);
+        if (!StringUtil.onlyNumbers(id)) {
+            throw new GoVegException(EnumErrorCod.FORMATO_INVALIDO_DO_CAMPO);
         }
 
         var findPerson = new FindPersonUseCase(personRepository);
@@ -67,10 +73,12 @@ public class PersonService extends AbstractService {
     @Transactional
     public Response findPersonDocument(String id) {
 
-        validade(id);
+        if (Utils.isNull(id)) {
+            throw new GoVegException(EnumErrorCod.CAMPO_OBRIGATORIO, "id");
+        }
 
-        if (!StringUtils.onlyNumbers(id)) {
-            throw new govegException(EnumErrorCod.FORMATO_INVALIDO_DO_CAMPO);
+        if (!StringUtil.onlyNumbers(id)) {
+            throw new GoVegException(EnumErrorCod.FORMATO_INVALIDO_DO_CAMPO);
         }
 
         var findPerson = new FindPersonDocumentUseCase(personRepository);
@@ -81,31 +89,32 @@ public class PersonService extends AbstractService {
 
     private void validadePerson(PersonDTO personDTO) {
 
-        if (personDTO == null) {
-            throw new govegException(EnumErrorCod.OBJETO_PERSON_OBRIGATORIO);
+        if (Utils.isNull(personDTO)) {
+            throw new GoVegException(EnumErrorCod.OBJETO_OBRIGATORIO, "person");
         }
 
-        if (personDTO.getSocialName() == null) {
-            throw new govegException(EnumErrorCod.CAMPO_OBRIGATORIO_NAME);
+        final ValidateUtil validate = new ValidateUtil();
+
+        if (validate.validateFields(personDTO.getSocialName(), "socialName").size() > 0) {
+            throw new GoVegException(EnumErrorCod.CAMPO_OBRIGATORIO, "socialName");
         }
 
-        if (personDTO.getDocument() == null) {
-            throw new govegException(EnumErrorCod.CAMPO_OBRIGATORIO_DOCUMENT);
+        if (validate.validateFields(personDTO.getDocument(), "document").size() > 0) {
+            throw new GoVegException(EnumErrorCod.CAMPO_OBRIGATORIO, "document");
+
         }
 
-        if (personDTO.getAddress().get(0).getPostalCode() == null) {
-            throw new govegException(EnumErrorCod.CAMPO_OBRIGATORIO_CEP);
-        }
+        personDTO.getAddress().forEach(e -> {
 
-        if (personDTO.getUser().getPassword() == null) {
-            throw new govegException(EnumErrorCod.CAMPO_OBRIGATORIO_SENHA);
-        }
-    }
+            if (validate.validateFields(e.getPostalCode(), "postalCode").size() > 0) {
+                throw new GoVegException(EnumErrorCod.CAMPO_OBRIGATORIO, "postalCode");
+            }
 
-    private void validade(String id) {
+        });
 
-        if (id == null) {
-            throw new govegException(EnumErrorCod.CAMPO_OBRIGATORIO);
+        if (validate.validateFields(personDTO.getUser().getPassword(), "password").size() > 0) {
+            throw new GoVegException(EnumErrorCod.CAMPO_OBRIGATORIO, "password");
+
         }
     }
 }
