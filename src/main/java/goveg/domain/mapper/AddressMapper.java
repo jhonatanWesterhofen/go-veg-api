@@ -1,16 +1,23 @@
 package goveg.domain.mapper;
 
+import java.util.UUID;
+
 import goveg.domain.entity.bo.AddressBO;
 import goveg.domain.entity.dto.AddressDTO;
+import goveg.domain.utils.Utils;
 
 public class AddressMapper {
 
     public static AddressBO toAddressBO(AddressDTO dto) {
 
-        if (dto == null) {
+        if (Utils.isNull(dto)) {
             return null;
         }
-        return new AddressBO(Long.valueOf(dto.getId()),
+
+        Long id = dto.getId() != null ? Long.valueOf(dto.getId()) 
+        : UUID.randomUUID().getMostSignificantBits() & Long.MAX_VALUE;
+
+        return new AddressBO(id,
                 dto.getStreet(),
                 dto.getNumber(),
                 dto.getComplement(),
@@ -23,7 +30,7 @@ public class AddressMapper {
 
     public static AddressDTO toAddressDTO(AddressBO bo) {
 
-        if (bo == null) {
+        if (Utils.isNull(bo)) {
             return null;
         }
 

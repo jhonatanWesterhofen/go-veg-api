@@ -4,11 +4,13 @@ import goveg.domain.entity.bo.PersonBO;
 
 public interface IPersonRepository {
 
-    PersonBO create(PersonBO person);
+    PersonBO createPerson(PersonBO person);
 
-    PersonBO merge(PersonBO person);
+    PersonBO merge(PersonBO person, Long id);
 
     PersonBO findBy(Long id);
 
-    void delete(PersonBO person);
+    PersonBO findDocument(String document);
+
+    void delete(PersonBO person,  Long id);
 }

@@ -2,13 +2,17 @@ package goveg.domain.entity.bo;
 
 import java.util.List;
 
+import goveg.domain.validate.ValidadeDocument;
+
 public class PersonBO {
 
     private Long id;
 
     private String socialName;
 
-    private String document;
+    private String cpf;
+
+    private String cnpj;
 
     private String email;
 
@@ -18,23 +22,26 @@ public class PersonBO {
 
     private List<AddressBO> address;
 
-    public PersonBO(Long id, String socialName, String document, String email, String phoneNumber, UserBO user,
-            List<AddressBO> address) {
+    private boolean ruralProducer;
+
+    public PersonBO(Long id, String socialName, String cpf, String cnpj, String email, String phoneNumber, UserBO user,
+            List<AddressBO> address, boolean ruralProducer) {
         this.id = id;
         this.socialName = socialName;
-        this.document = document;
+        this.cpf = cpf;
+        this.cnpj = cnpj;
         this.email = email;
         this.phoneNumber = phoneNumber;
         this.user = user;
         this.address = address;
+        this.ruralProducer = ruralProducer;
+
+        validate(cpf);
+        validate(cnpj);
     }
 
     public String getSocialName() {
         return socialName;
-    }
-
-    public String getDocument() {
-        return document;
     }
 
     public String getEmail() {
@@ -56,4 +63,22 @@ public class PersonBO {
     public List<AddressBO> getAddress() {
         return address;
     }
+
+    public String getCpf() {
+        return cpf;
+    }
+
+    public String getCnpj() {
+        return cnpj;
+    }
+
+    public void validate(String str) {
+        ValidadeDocument validador = new ValidadeDocument();
+        validador.validate(str);
+    }
+
+    public boolean isRuralProducer() {
+        return ruralProducer;
+    }
+
 }

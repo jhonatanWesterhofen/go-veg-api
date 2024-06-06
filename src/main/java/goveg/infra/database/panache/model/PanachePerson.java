@@ -29,11 +29,17 @@ public class PanachePerson extends PanacheEntityBase {
     @Column(name = "SOCIAL_NAME")
     private String socialName;
 
-    @Column(name = "DOCUMENT", unique = true)
-    private String document;
+    @Column(name = "CPF", unique = true)
+    private String cpf;
+
+    @Column(name = "CNPJ", unique = true)
+    private String cnpj;
 
     @Column(name = "EMAIL")
     private String email;
+
+    @Column(name = "rural_Producer")
+    private boolean ruralProducer;
 
     @Column(name = "PHONE_NUMBER")
     private String phoneNumber;
@@ -52,14 +58,6 @@ public class PanachePerson extends PanacheEntityBase {
 
     public void setSocialName(String socialName) {
         this.socialName = socialName;
-    }
-
-    public String getDocument() {
-        return document;
-    }
-
-    public void setDocument(String document) {
-        this.document = document;
     }
 
     public String getEmail() {
@@ -100,5 +98,29 @@ public class PanachePerson extends PanacheEntityBase {
 
     public void setProducerAddress(List<PanacheAddress> producerAddress) {
         this.producerAddress = producerAddress;
+    }
+
+    public String getCpf() {
+        return cpf;
+    }
+
+    public void setCpf(String cpf) {
+        this.cpf = cpf;
+    }
+
+    public String getCnpj() {
+        return cnpj;
+    }
+
+    public void setCnpj(String cnpj) {
+        this.cnpj = cnpj;
+    }
+
+    public boolean isRuralProducer() {
+        return ruralProducer;
+    }
+
+    public void setRuralProducer(boolean ruralProducer) {
+        this.ruralProducer = ruralProducer;
     }
 }

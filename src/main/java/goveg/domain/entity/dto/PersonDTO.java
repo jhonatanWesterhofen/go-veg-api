@@ -14,6 +14,8 @@ public class PersonDTO {
 
     private String phoneNumber;
 
+    private boolean ruralProducer;
+
     private UserDTO user;
 
     private List<AddressDTO> address;
@@ -72,5 +74,13 @@ public class PersonDTO {
 
     public void setAddress(List<AddressDTO> address) {
         this.address = address;
+    }
+
+    public boolean isRuralProducer() {
+        return ruralProducer;
+    }
+
+    public void setRuralProducer(boolean ruralProducer) {
+        this.ruralProducer = ruralProducer;
     }
 }
