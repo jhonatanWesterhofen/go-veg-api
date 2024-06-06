@@ -22,8 +22,10 @@ public class PersonBO {
 
     private List<AddressBO> address;
 
+    private boolean ruralProducer;
+
     public PersonBO(Long id, String socialName, String cpf, String cnpj, String email, String phoneNumber, UserBO user,
-            List<AddressBO> address) {
+            List<AddressBO> address, boolean ruralProducer) {
         this.id = id;
         this.socialName = socialName;
         this.cpf = cpf;
@@ -32,6 +34,7 @@ public class PersonBO {
         this.phoneNumber = phoneNumber;
         this.user = user;
         this.address = address;
+        this.ruralProducer = ruralProducer;
 
         validate(cpf);
         validate(cnpj);
@@ -73,4 +76,9 @@ public class PersonBO {
         ValidadeDocument validador = new ValidadeDocument();
         validador.validate(str);
     }
+
+    public boolean isRuralProducer() {
+        return ruralProducer;
+    }
+
 }

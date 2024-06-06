@@ -11,7 +11,7 @@ import goveg.infra.database.panache.model.PanachePerson;
 
 public class PanachePersonMapper {
 
-    public static PanachePerson toEntity(PersonBO bo) {
+    public static PanachePerson toEntity(PersonBO bo, Long id) {
 
         if (Utils.isNull(bo)) {
             return null;
@@ -23,7 +23,7 @@ public class PanachePersonMapper {
 
         PanachePerson panachePerson = new PanachePerson();
 
-        panachePerson.setId(null);
+        panachePerson.setId(id);
         panachePerson.setSocialName(bo.getSocialName());
         panachePerson.setCnpj(bo.getCnpj() != null ? bo.getCnpj() : null);
         panachePerson.setCpf(bo.getCpf() != null ? bo.getCpf() : null);
@@ -31,6 +31,7 @@ public class PanachePersonMapper {
         panachePerson.setPhoneNumber(bo.getPhoneNumber());
         panachePerson.setUser(PanacheUserMapper.toEntity(bo.getUser()));
         panachePerson.setProducerAddress(address);
+        panachePerson.setRuralProducer(bo.isRuralProducer());
 
         return panachePerson;
 
@@ -54,6 +55,7 @@ public class PanachePersonMapper {
                 panachePerson.getEmail(),
                 panachePerson.getPhoneNumber(),
                 PanacheUserMapper.toDomain(panachePerson.getUser()),
-                address);
+                address,
+                panachePerson.isRuralProducer());
     }
 }

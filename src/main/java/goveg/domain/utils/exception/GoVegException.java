@@ -5,7 +5,7 @@ import goveg.domain.utils.StringUtil;
 
 public class GoVegException extends RuntimeException {
 
-    private String errorCode = "-1";
+    private String errorCode;
 
     public GoVegException(String message, String errorCode) {
         super(message);

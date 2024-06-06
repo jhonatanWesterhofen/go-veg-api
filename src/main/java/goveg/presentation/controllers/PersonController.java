@@ -1,7 +1,6 @@
 package goveg.presentation.controllers;
 
 import org.jboss.resteasy.annotations.jaxrs.HeaderParam;
-
 import goveg.domain.entity.dto.PersonDTO;
 import goveg.presentation.service.PersonService;
 import jakarta.inject.Inject;
@@ -30,27 +29,27 @@ public class PersonController {
     @GET
     @Path("/find/person/id")
     @Consumes(MediaType.APPLICATION_JSON)
-    public Response findPerson(String id) {
+    public Response findPerson(@HeaderParam String id) {
         return accountService.findIdPerson(id);
     }
 
     @GET
     @Path("/find/person/document")
     @Consumes(MediaType.APPLICATION_JSON)
-    public Response findPersonDocument(String id) {
-        return accountService.findIdPerson(id);
+    public Response findPersonDocument(@HeaderParam String document) {
+        return accountService.findPersonDocument(document);
     }
 
     @PUT
     @Path("update")
     @Consumes(MediaType.APPLICATION_JSON)
-    public Response updateAccount(PersonDTO dto) {
-        return accountService.updateAccount(dto);
+    public Response updateAccount(PersonDTO dto, @HeaderParam String document) {
+        return accountService.updateAccount(dto, document);
     }
 
     @DELETE
     @Path("remove")
-    public Response removeAccount(@HeaderParam String id) {
-        return accountService.removeAccount(id);
+    public Response removeAccount(@HeaderParam String document) {
+        return accountService.removeAccount(document);
     }
 }

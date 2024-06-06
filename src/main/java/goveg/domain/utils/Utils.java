@@ -7,6 +7,6 @@ public class Utils {
     }
 
     public static <T> boolean isNotNull(T value) {
-        return value == null ? false : true;
+        return !isNull(value);
     }
 }

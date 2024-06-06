@@ -1,6 +1,9 @@
 package goveg.domain.usecase.person;
 
+import goveg.domain.entity.bo.PersonBO;
+import goveg.domain.entity.enums.EnumErrorCod;
 import goveg.domain.repositories.IPersonRepository;
+import goveg.domain.utils.exception.GoVegException;
 
 public class RemovePersonUseCase {
 
@@ -10,16 +13,14 @@ public class RemovePersonUseCase {
         this.iPersonRepository = iPersonRepository;
     }
 
-    public void execute(String id) {
+    public void execute(String document) {
 
-        long idLong = Long.parseLong(id);
-
-        var bo = iPersonRepository.findBy(idLong);
+        PersonBO bo = iPersonRepository.findDocument(document);
 
         if (bo != null) {
-
-            iPersonRepository.delete(bo);
-
+            iPersonRepository.delete(bo, bo.getId());
+        } else {
+            throw new GoVegException(EnumErrorCod.USUARIO_EXISTENTE);
         }
     }
 }

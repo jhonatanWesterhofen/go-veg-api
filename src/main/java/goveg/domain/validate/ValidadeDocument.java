@@ -11,11 +11,11 @@ public class ValidadeDocument {
 
     public void validate(String str) {
 
-        if (!isCNPJ(str) || !isCPF(str)) {
+        if (!isCNPJ(str) && !isCPF(str)) {
             throw new GoVegException(EnumErrorCod.DOCUMENTO_INFORMADO_INVALIDO);
         }
 
-        if (!isValidCNPJ(str) || isCPF(str)) {
+        if (!isValidCNPJ(str) && !isValidCPF(str)) {
             throw new GoVegException(EnumErrorCod.DOCUMENTO_INFORMADO_INVALIDO);
         }
 
@@ -23,7 +23,7 @@ public class ValidadeDocument {
 
     public boolean isCPF(String str) {
 
-        if (verifyCaractere(str) && Utils.isNull(str)) {
+        if (StringUtil.onlyNumbers(str) && !Utils.isNull(str)) {
             return str.replaceAll(regex, "").length() == 11 ? true : false;
         }
 
@@ -31,18 +31,18 @@ public class ValidadeDocument {
     }
 
     public boolean isCNPJ(String str) {
-        if (verifyCaractere(str) && Utils.isNull(str)) {
+        if (StringUtil.onlyNumbers(str) && !Utils.isNull(str)) {
             return str.replaceAll(regex, "").length() == 14 ? true : false;
         }
 
         return false;
     }
 
-    private boolean verifyCaractere(String str) {
-        return StringUtil.onlyNumbers(str);
-    }
-
     public boolean isValidCPF(String cpf) {
+
+        if (cpf == null || cpf.length() != 11) {
+            return false;
+        }
 
         int[] digits = new int[11];
         for (int i = 0; i < 11; i++) {
@@ -71,6 +71,11 @@ public class ValidadeDocument {
     }
 
     public boolean isValidCNPJ(String cnpj) {
+
+        if (cnpj == null || cnpj.length() != 14) {
+            return false;
+        }
+
         int[] digits = new int[14];
         for (int i = 0; i < 14; i++) {
             digits[i] = Integer.parseInt(cnpj.substring(i, i + 1));
@@ -97,5 +102,4 @@ public class ValidadeDocument {
         int expectedDigit2 = (mod < 2) ? 0 : (11 - mod);
         return (digits[13] == expectedDigit2);
     }
-
 }

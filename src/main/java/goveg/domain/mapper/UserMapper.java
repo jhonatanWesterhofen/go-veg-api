@@ -1,9 +1,9 @@
 package goveg.domain.mapper;
 
-import java.time.LocalDate;
+
 import java.time.LocalDateTime;
-import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
+import java.util.UUID;
 import goveg.domain.entity.bo.UserBO;
 import goveg.domain.entity.dto.UserDTO;
 import goveg.domain.utils.Utils;
@@ -16,13 +16,14 @@ public class UserMapper {
             return null;
         }
 
-        LocalDateTime creatAt = LocalDateTime.of(LocalDate.parse(dto.getCreatedAt()), LocalTime.MIDNIGHT);
+        Long id = dto.getId() != null ? Long.valueOf(dto.getId())
+                : UUID.randomUUID().getMostSignificantBits() & Long.MAX_VALUE;
 
-        return new UserBO(Long.valueOf(dto.getId()),
+        return new UserBO(id,
                 dto.getDocument(),
                 dto.getPassword(),
                 dto.getConfirmationPass(),
-                creatAt);
+                LocalDateTime.now());
     }
 
     public static UserDTO toUserDTO(UserBO bo) {

@@ -38,6 +38,9 @@ public class PanachePerson extends PanacheEntityBase {
     @Column(name = "EMAIL")
     private String email;
 
+    @Column(name = "rural_Producer")
+    private boolean ruralProducer;
+
     @Column(name = "PHONE_NUMBER")
     private String phoneNumber;
 
@@ -111,5 +114,13 @@ public class PanachePerson extends PanacheEntityBase {
 
     public void setCnpj(String cnpj) {
         this.cnpj = cnpj;
+    }
+
+    public boolean isRuralProducer() {
+        return ruralProducer;
+    }
+
+    public void setRuralProducer(boolean ruralProducer) {
+        this.ruralProducer = ruralProducer;
     }
 }

@@ -1,1 +1,1 @@
-docker run --name pg-goveg -e POSTGRES_USER=goveg -e POSTGRES_PASSWORD=1329 -p 5656:5432 -d postgres
+docker run --name pg-goveg -e POSTGRES_USER=goveg -e POSTGRES_PASSWORD=8085 -p 5656:5432 -d postgres

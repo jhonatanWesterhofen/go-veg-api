@@ -4,21 +4,28 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 
+import goveg.domain.entity.enums.EnumErrorCod;
 import goveg.domain.utils.ListUtil;
 import goveg.domain.utils.StringUtil;
+import goveg.domain.utils.exception.GoVegException;
 
 public class ValidateUtil {
 
-    private List<Object> listNull = new ArrayList<>();
+    private List<String> nullFields = new ArrayList<>();
 
-    public List<Object> validateFields(Object obj, String fieldName) {
+    public void validateFields(Object obj, String fieldName) {
 
-        if (isNullOrEmpty(obj)) {
-            listNull.add(fieldName);
-
-            return listNull;
+        boolean verifyFieldsNullOrEmpty = isNullOrEmpty(obj);
+        if (verifyFieldsNullOrEmpty) {
+            nullFields.add(fieldName);
         }
-        return null;
+    }
+
+    public void validate() {
+
+        if (ListUtil.isNotNullOrNotEmpty(nullFields)) {
+            throw new GoVegException(EnumErrorCod.OBJETO_OBRIGATORIO);
+        }
     }
 
     private boolean isNullOrEmpty(Object obj) {

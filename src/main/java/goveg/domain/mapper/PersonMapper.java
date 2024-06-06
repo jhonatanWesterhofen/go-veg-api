@@ -1,6 +1,7 @@
 package goveg.domain.mapper;
 
 import java.util.List;
+import java.util.UUID;
 import java.util.stream.Collectors;
 
 import goveg.domain.entity.bo.AddressBO;
@@ -23,15 +24,19 @@ public class PersonMapper {
                 .map(AddressMapper::toAddressBO)
                 .collect(Collectors.toList());
 
+        Long id = dto.getId() != null ? Long.valueOf(dto.getId())
+                : UUID.randomUUID().getMostSignificantBits() & Long.MAX_VALUE;
+
         return new PersonBO(
-                Long.valueOf(dto.getId()),
+                id,
                 dto.getSocialName(),
                 dto.getDocument(),
                 dto.getDocument(),
                 dto.getEmail(),
                 dto.getPhoneNumber(),
                 UserMapper.toUserBO(dto.getUser()),
-                addressBO);
+                addressBO,
+                dto.isRuralProducer());
     }
 
     public static PersonDTO toDTO(PersonBO bo) {
@@ -39,7 +44,6 @@ public class PersonMapper {
         if (Utils.isNull(bo)) {
             return null;
         }
-
         List<AddressDTO> addressDTO = bo.getAddress().stream()
                 .map(AddressMapper::toAddressDTO)
                 .collect(Collectors.toList());
@@ -48,14 +52,14 @@ public class PersonMapper {
 
         personDTO.setId(bo.getId().toString());
         personDTO.setSocialName(bo.getSocialName());
-        personDTO.setDocument(bo.getCpf() == null ? bo.getCnpj() : null);
-        personDTO.setDocument(bo.getCnpj() == null ? bo.getCpf() : null);
+        personDTO.setDocument(bo.getCpf());
         personDTO.setEmail(bo.getEmail());
         personDTO.setPhoneNumber(bo.getPhoneNumber());
         personDTO.setUser(UserMapper.toUserDTO(bo.getUser()));
         personDTO.setAddress(addressDTO);
+        personDTO.setRuralProducer(bo.isRuralProducer());
 
         return personDTO;
-
+        
     }
 }
